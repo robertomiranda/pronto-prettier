@@ -7,10 +7,10 @@ module Pronto
 
     def run
       if ENV['LOG_PRONTO']
-        Logger.new(STDOUT).info("prettier --check")
+        Logger.new(STDOUT).info("prettier --check .")
         status = system("prettier --check ")
       else
-        status = system("prettier --check &> /dev/null")
+        status = system("prettier --check . &> /dev/null")
       end
 
       if status
