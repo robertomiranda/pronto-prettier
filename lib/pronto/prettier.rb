@@ -16,8 +16,8 @@ module Pronto
       if status
         []
       else
-        msg = 'Code style issues found in the file. Forgot to run `yarn format`?'
-        javascript_files.map { |js| Message.new(js, nil, :warning, msg, nil, self.class) }
+        msg = 'Code style issues found in the file. Forgot to run `prettier --check .`?'
+        javascript_files.map { |js| Message.new(js, nil, :error, msg, nil, self.class) }
       end
     end
 
