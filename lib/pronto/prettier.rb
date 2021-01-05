@@ -6,10 +6,18 @@ module Pronto
     EXTNAMES = %w[.jsx .js].freeze
 
     def run
-      if javascript_files.any?
-        run_prettier_check!
+      if ENV['LOG_PRONTO']
+        Logger.new(STDOUT).info("prettier --check")
+        status = system("prettier --check ")
       else
+        status = system("prettier --check &> /dev/null")
+      end
+
+      if status
         []
+      else
+        msg = 'Code style issues found in the file. Forgot to run `yarn format`?'
+        javascript_files.map { |js| Message.new(js, nil, :warning, msg, nil, self.class) }
       end
     end
 
